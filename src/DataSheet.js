@@ -215,6 +215,8 @@ export default class DataSheet extends PureComponent {
 
   handleKeyboardCellMovement (e, commit = false) {
     const {start, end, editing} = this.getState()
+    console.log(start)
+    console.log(end)
     const {data} = this.props
     const isEditing = editing && !isEmpty(editing)
     const currentCell = data[start.i] && data[start.i][start.j]

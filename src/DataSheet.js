@@ -214,7 +214,7 @@ export default class DataSheet extends PureComponent {
   }
 
   handleKeyboardCellMovement (e, commit = false) {
-    const {start, editing} = this.getState()
+    const {start, end, editing} = this.getState()
     const {data} = this.props
     const isEditing = editing && !isEmpty(editing)
     const currentCell = data[start.i] && data[start.i][start.j]
@@ -241,6 +241,9 @@ export default class DataSheet extends PureComponent {
       this.handleNavigate(e, {i: -1, j: 0})
     } else if (keyCode === DOWN_KEY) {
       this.handleNavigate(e, {i: 1, j: 0})
+    } else if (commit && keyCode === ENTER_KEY && end.i > start.i && end.j === start.j) {
+      const diff = end.i - start.i
+      this.handleNavigate(e, { i: e.shiftKey ? diff - 1 : diff + 1, j: 0 })
     } else if (commit && keyCode === ENTER_KEY) {
       this.handleNavigate(e, {i: e.shiftKey ? -1 : 1, j: 0})
     }
